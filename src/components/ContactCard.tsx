@@ -1,29 +1,27 @@
-import * as React from 'react';
-import { Contact } from '../types/Types';
-
+import { Contact, Props } from '../types/Types';
 import { formatPhoneNumber } from '../utilities/formatPhoneNumber';
 
-const CardHeader = (Person:{firstName: string; lastName: string}):JSX.Element => {
-  return  <h2 className="text-gray-800 text-3xl font-semibold">{[Person.firstName, " ", Person.lastName]}</h2>
-} 
+//Displays information about the Contact
+const CardContents = (props:Props):JSX.Element =>  <div>{props.children}</div>
 
-const CardNumber = (Person:{phoneNumber: number}): JSX.Element => {
-  return  <p className="mt-2 text-gray-600">{formatPhoneNumber(Person.phoneNumber)}</p>
-}
+//Displays various interactive options available for the Contact
+const CardActions = (props:Props):JSX.Element => <div className="flex justify-end mt-4">{props.children}</div>
+
+//Contact Card Border
+const Card = (props:Props):JSX.Element => 
+<div className="max-w-md py-4 px-8 bg-gray-200 shadow-lg rounded-lg">{props.children}</div>
 
 
 export const ContactCard = ({firstName, lastName, phoneNumber, email}: Contact) => 
-<div className="max-w-md py-4 px-8 bg-gray-200 shadow-lg rounded-lg">
-  <div className="flex justify-center md:justify-end">
-  </div>
-  <div>
-    <CardHeader firstName={firstName} lastName={lastName}/>
-    <CardNumber phoneNumber={phoneNumber}/>
-  </div>
-  <div className="flex justify-end mt-4">
+<Card>
+  <CardContents>
+    <h2 className="text-gray-800 text-3xl font-semibold">{[firstName, " ", lastName]}</h2>
+    <p className="mt-2 text-gray-600">{formatPhoneNumber(phoneNumber)}</p>
+  </CardContents>
+  <CardActions>
     <a href={"mailto:"+email} className="text-xl font-medium text-indigo-500 z-20"><span data-content={email} aria-hidden='true'></span>{email}</a>
-  </div>
-</div>
+  </CardActions>
+</Card>
 
 
 

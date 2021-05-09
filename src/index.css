@@ -4,6 +4,7 @@
 
 @layer utilities {
   span{
+  pointer-events: none;
 	position:absolute;
 	overflow: hidden;
 	transform: translateX(-100%);
