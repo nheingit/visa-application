@@ -1,41 +1,55 @@
-import { useState } from 'react';
+import { useContext } from "react";
+import * as React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import { ContactCard } from './components/ContactCard';
-import { Contacts } from './static/Contacts';
-
-
+import { ContactListContext, ContactListProvider } from "./context";
+import { ContactCard } from "./components/ContactCard";
+import { Contacts } from "./static/Contacts";
+import { CreateContact } from "./pages/createContact";
+import { EditContact } from "./pages/editContact";
 
 function App() {
 
-let changeableContacts = Contacts
-
-let [contacts, setContacts] = useState(changeableContacts)
-console.log("this is the state of changablecontacts: ", changeableContacts)
-console.log("this is my state: ", contacts)
-console.log("this is the state of changablecontacts: ", contacts)
+  const [contacts, setContacts] = useContext(ContactListContext);
+  console.log(contacts,)
+  console.log("this is my contacts context", contacts)
 
   return (
-    <>
-   <div className="p-8">
-      {contacts.map(contact=>(
-        <div key={contact.id} className="mb-8">
-        <ContactCard
-        firstName={contact.firstName}
-        lastName={contact.lastName}
-        phoneNumber={contact.phoneNumber}
-        email={contact.email}/>
-        </div>
-      ))}
-    </div>
-    <button onClick={(e)=> {
-      e.preventDefault();
-      let newContacts = contacts.concat([{id: 5, firstName: "joe", lastName: "schupp", phoneNumber: 1231231234, email: "email@dodo.com"}])
-      setContacts(newContacts);
-      console.log(contacts)
-    }
-      }> add joe</button>
-    </>
-  
+      <Router>
+        <>
+          <Route path="/" exact component={CreateContact} />
+          <Route path="/edit" exact component={EditContact} />
+          <div className="p-8">
+            {contacts.map((item) => (
+              <div key={item.id} className="mb-8">
+                <ContactCard
+                  firstName={item.firstName}
+                  lastName={item.lastName}
+                  phoneNumber={item.phoneNumber}
+                  email={item.email}
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => {
+              let newContacts = contacts.concat([
+                {
+                  id: 5,
+                  firstName: "joe",
+                  lastName: "schupp",
+                  phoneNumber: 1231231234,
+                  email: "email@dodo.com",
+                },
+              ]);
+              setContacts(newContacts);
+            }}
+          >
+            {" "}
+            add joe
+          </button>
+        </>
+      </Router>
   );
 }
 
