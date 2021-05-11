@@ -1,0 +1,1 @@
+export const removeCard = () => console.log("remove")
