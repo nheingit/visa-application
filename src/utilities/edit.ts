@@ -1,1 +1,0 @@
-export const editCard = () => console.log("remove");

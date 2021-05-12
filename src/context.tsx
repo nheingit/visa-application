@@ -7,14 +7,13 @@ import { Props } from './types/Types'
 export const ContactListContext = createContext(Contacts)
 
 export const ContactListProvider = ((props: Props) => {
-    const [contacts, setContacts] = useState(Contacts)
-
-    React.useEffect(()=> {
-        const data = localStorage.getItem('contact-list');
+    const [contacts, setContacts] = useState(()=>{
+        const data = localStorage.getItem("contact-list")
         if(data){
-            setContacts(JSON.parse(data))
+            return JSON.parse(data)
         }
-    }, []);
+        return Contacts
+    })
 
     React.useEffect(()=>{
         localStorage.setItem("contact-list", JSON.stringify(contacts))

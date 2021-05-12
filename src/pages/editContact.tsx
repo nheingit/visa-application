@@ -1,31 +1,32 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { ContactListContext } from "../context";
 import { ContactCard } from "../components/ContactCard";
 import { v4 as uuid } from "uuid";
 
 import { useLocation } from "react-router";
 import { Contact } from "../types/Types";
+import { Router } from "react-router-dom";
+
 
 export const EditContact = ({ contacts }: { contacts: Contact[] }) => {
-
+const { id }:{id:string} = useParams();
+console.log(id)
   const [contact, setContact] = useContext(ContactListContext)
-  const location = useLocation();
   const history = useHistory();
-  // the 6 will take care of  the /edit/ portion of the pathname leaving me with the contact id that we clicked on.
-  const cardId = location.pathname.substring(6);
-  const editedCard = contacts.find((contact) => contact.id == cardId);
+  const editedCard = contacts.find((contact) => contact.id == id);
 
   const [firstName, setFirstName] = useState("firstName");
   const [email, setEmail] = useState("email@email.com");
   const [phoneNumber, setPhoneNumber] = useState(1234567891);
   const [lastName, setLastName] = useState("lastName");
-  const [id, setId] = useState(uuid());
+  //@ts-ignore
+  
 
 
   const HandleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-    const newArray = contacts.filter((contact) => contact.id !== cardId)
+    const newArray = contacts.filter((contact) => contact.id !== id)
     const newContact:Contact = {
         id: editedCard!.id,
         firstName: firstName,
