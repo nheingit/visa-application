@@ -15,7 +15,6 @@ const { id }:{id:string} = useParams();
   const [email, setEmail] = useState("email@email.com");
   const [phoneNumber, setPhoneNumber] = useState(1234567891);
   const [lastName, setLastName] = useState("lastName");
-  //@ts-ignore
   
 
 
