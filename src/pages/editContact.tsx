@@ -40,8 +40,10 @@ export const EditContact = ({ contacts }: { contacts: Contact[] }) => {
 
   return (
     <div className="bg-gray-300">
+        <h1 className="text-4xl p-8">Edit Cards</h1>
       <div className="p-8">
         <div className="mb-12">
+            <h2 className="text-2xl">Current Card</h2>
           <ContactCard
             id={editedCard!.id}
             lastName={editedCard!.lastName}
@@ -50,8 +52,9 @@ export const EditContact = ({ contacts }: { contacts: Contact[] }) => {
             email={editedCard!.email}
           />
         </div>
+        <h2 className="text-2xl">New Card</h2>
         <ContactCard
-          id={id}
+          id={editedCard!.id}
           lastName={lastName}
           firstName={firstName}
           phoneNumber={phoneNumber}
@@ -91,9 +94,9 @@ export const EditContact = ({ contacts }: { contacts: Contact[] }) => {
             onChange={(e: any) => setPhoneNumber(e.target.value)}
           />
           </div>
-          <button className="bg-red-400 mb-5 py-2 px-10" type="submit">Submit</button>
+          <button className="bg-red-400 mb-5 py-2 px-11" type="submit">Submit Edit</button>
         </form>
-        <button type="button" onClick={()=> {history.push("/")}} className="bg-blue-400 py-2 px-11 ">Home</button>
+        <button type="button" onClick={()=> {history.push("/")}} className="bg-blue-400 py-2 px-16 ">Home</button>
       </div>
     </div>
   );

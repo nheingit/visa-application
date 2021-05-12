@@ -1,9 +1,8 @@
-import React from "react";
+import {useState} from "react";
 import { Contact } from "../types/Types";
-
 import { ContactCard } from "./ContactCard";
 
-export const ContactCards = ({ contacts }:{contacts:Contact[]}, isShowing:boolean) => {
+export const ContactCards = ({ contacts }:{contacts:Contact[]}) => {
   return (
     <div className="m-2">
       {contacts.map((contact: Contact) => (
