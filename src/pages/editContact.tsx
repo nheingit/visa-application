@@ -2,18 +2,14 @@ import React, { useState, useContext } from "react";
 import { useHistory, useParams } from "react-router";
 import { ContactListContext } from "../context";
 import { ContactCard } from "../components/ContactCard";
-import { v4 as uuid } from "uuid";
-
-import { useLocation } from "react-router";
 import { Contact } from "../types/Types";
-import { Router } from "react-router-dom";
 
 
 export const EditContact = ({ contacts }: { contacts: Contact[] }) => {
 const { id }:{id:string} = useParams();
   const [contact, setContact] = useContext(ContactListContext)
   const history = useHistory();
-  const editedCard = contacts.find((contact) => contact.id == id);
+  const editedCard = contacts.find((contact) => contact.id === id);
 
   const [firstName, setFirstName] = useState("firstName");
   const [email, setEmail] = useState("email@email.com");

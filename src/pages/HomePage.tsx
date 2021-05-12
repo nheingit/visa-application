@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Contact } from "../types/Types";
 import { ContactCards } from "../components/ContactCards";
 import { Link } from "react-router-dom";
