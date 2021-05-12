@@ -26,6 +26,7 @@ const { id }:{id:string} = useParams();
   const HandleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
     const newArray = contacts.filter((contact) => contact.id !== id)
+    console.log(newArray)
     const newContact:Contact = {
         id: editedCard!.id,
         firstName: firstName,

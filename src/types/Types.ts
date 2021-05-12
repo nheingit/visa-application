@@ -4,6 +4,7 @@ export interface Contact {
     lastName: string;
     phoneNumber: number;
     email: string;
+    isShowing?: boolean;
 }
 
 export type Props = {

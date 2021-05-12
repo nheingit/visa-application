@@ -1,5 +1,5 @@
 import { object } from "prop-types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ContactListContext } from "../context";
@@ -29,8 +29,11 @@ export const ContactCard = ({
   phoneNumber,
   email,
   id,
+  isShowing
 }: Contact) => {
+  const [showingInfo, setShowingInfo] = useState(isShowing)
   const [contact, setContact] = useContext(ContactListContext)
+  const [showMoreOrShowLess, setShowMoreorShowLess] = useState(true)
 
   const deleteCard = () => {
     
@@ -58,11 +61,24 @@ export const ContactCard = ({
           {[firstName, " ", lastName]}
         </h2>
         <p className="mt-2 text-gray-600">{formatPhoneNumber(phoneNumber)}</p>
+        {showMoreOrShowLess ? 
+        <button className="relative top-2" onClick={()=>{
+          setShowingInfo(!showingInfo)
+          setShowMoreorShowLess(!showMoreOrShowLess)
+        }}>
+          Show More
+        </button> : <button className='relative top-2' onClick={()=>{
+          setShowingInfo(!showingInfo)
+          setShowMoreorShowLess(!showMoreOrShowLess)
+        }} >Show Less</button>
+      }
+        
       </CardContents>
-      <CardActions>
-        <Link className="mr-3 mt-1" to={`/view/${id}`}>
+      {showingInfo ? <CardActions>
+         <Link className="mr-3 mt-1" to={`/view/${id}`}>
           View
         </Link>
+        
         <Link onClick={deleteCard} className="mr-3 mt-1" to="#">
           Delete
         </Link>
@@ -76,7 +92,8 @@ export const ContactCard = ({
           <span data-content={email} aria-hidden="true"></span>
           {email}
         </a>
-      </CardActions>
+      </CardActions>:<div className='flex justify-end'>...</div>}
+      
     </Card>
   );
 };
