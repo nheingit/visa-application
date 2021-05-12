@@ -34,7 +34,7 @@ export const ContactCard = ({
 
   const deleteCard = () => {
     
-    const confirmation = window.confirm("are you sure you want to delete?")
+    const confirmation = window.confirm("Click Ok to delete. All changes are permanent!")
 
      if(confirmation){
     const arr:Contact[] = []
@@ -60,6 +60,9 @@ export const ContactCard = ({
         <p className="mt-2 text-gray-600">{formatPhoneNumber(phoneNumber)}</p>
       </CardContents>
       <CardActions>
+        <Link className="mr-3 mt-1" to={`/view/${id}`}>
+          View
+        </Link>
         <Link onClick={deleteCard} className="mr-3 mt-1" to="#">
           Delete
         </Link>

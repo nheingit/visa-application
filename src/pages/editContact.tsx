@@ -11,7 +11,6 @@ import { Router } from "react-router-dom";
 
 export const EditContact = ({ contacts }: { contacts: Contact[] }) => {
 const { id }:{id:string} = useParams();
-console.log(id)
   const [contact, setContact] = useContext(ContactListContext)
   const history = useHistory();
   const editedCard = contacts.find((contact) => contact.id == id);
@@ -37,6 +36,7 @@ console.log(id)
     newArray.push(newContact)
     //@ts-ignore
     setContact(newArray);
+    alert("Successfully Edited Card!")
   };
 
   return (

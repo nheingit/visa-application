@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { ContactListContext, ContactListProvider } from "./context";
 import { HomePage } from "./pages/HomePage";
+import { ViewPage } from "./pages/viewContact";
 import { EditContact } from "./pages/editContact";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <a href="/" className="text-4xl text-white">Visa Technical Application</a>
         </div>
           <Route path="/" exact render={(props) => <HomePage {...props} contacts={contacts}/> }/>
+          <Route path="/view/:id" render={(props) => <ViewPage {...props} contacts={contacts}/>}/>
           <Route path="/edit/:id" render={(props) => <EditContact {...props} contacts={contacts}/>}/>
         </div>
       </Router>
