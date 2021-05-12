@@ -13,13 +13,12 @@ import { AddCard } from "./utilities/add";
 function App() {
 
   const [contacts, setContacts] = useContext(ContactListContext);
-  const [openStatus, setOpenStatus] = useState(false);
   console.log(contacts,)
   console.log("this is my contacts context", contacts)
   return (
       <Router>
-        <div className="bg-gray-50">
-        <div className="bg-gradient-to-r from-visa-blue via-gray-500 to-visa-gold mb-4 p-4">
+        <div className="bg-gray-300">
+        <div className="bg-gradient-to-r from-visa-blue via-gray-500 to-visa-gold p-4">
           <a href="/" className="text-4xl text-white">Visa Technical Application</a>
         </div>
           <Route path="/" exact render={(props) => <HomePage {...props} contacts={contacts}/> }/>

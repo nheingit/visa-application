@@ -14,8 +14,7 @@ const CardActions = (props:Props):JSX.Element => <div className="flex justify-en
 
 
 //Contact Card Border
-const Card = (props:Props):JSX.Element => 
-<div className="max-w-md py-4 px-8 bg-gray-200 shadow-lg rounded-lg">{props.children}</div>
+const Card = (props:Props):JSX.Element => <div className="max-w-md py-4 px-8 bg-gray-200 shadow-lg rounded-lg">{props.children}</div>
 
 
 export const ContactCard = ({firstName, lastName, phoneNumber, email, id}: Contact) => 
