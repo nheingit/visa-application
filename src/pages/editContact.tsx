@@ -1,46 +1,52 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, ChangeEvent } from "react";
 import { useHistory, useParams } from "react-router";
 import { ContactListContext } from "../context";
 import { ContactCard } from "../components/ContactCard";
 import { Contact } from "../types/Types";
 
-
 export const EditContact = ({ contacts }: { contacts: Contact[] }) => {
-const { id }:{id:string} = useParams();
-  const [contact, setContact] = useContext(ContactListContext)
+  const { id }: { id: string } = useParams();
+  const [contact, setContact] = useContext(ContactListContext);
   const history = useHistory();
   const editedCard = contacts.find((contact) => contact.id === id);
 
-  const [firstName, setFirstName] = useState("firstName");
-  const [email, setEmail] = useState("email@email.com");
-  const [phoneNumber, setPhoneNumber] = useState(1234567891);
-  const [lastName, setLastName] = useState("lastName");
-  
-
+  const [formState, setFormState] = useState({
+    firstName: "first",
+    lastName: "last",
+    email: "email@email.com",
+    phoneNumber: 1234567899,
+  });
 
   const HandleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-    const newArray = contacts.filter((contact) => contact.id !== id)
-    console.log(newArray)
-    const newContact:Contact = {
-        id: editedCard!.id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phoneNumber: phoneNumber
-    }
-    newArray.push(newContact)
+    e.preventDefault();
+    const newArray = contacts.filter((contact) => contact.id !== id);
+    console.log(newArray);
+    const newContact: Contact = {
+      id: editedCard!.id,
+      firstName: formState.firstName,
+      lastName: formState.lastName,
+      email: formState.email,
+      phoneNumber: formState.phoneNumber,
+    };
+    newArray.push(newContact);
     //@ts-ignore
     setContact(newArray);
-    alert("Successfully Edited Card!")
+    alert("Successfully Edited Card!");
+    history.push("/");
   };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setFormState((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
 
   return (
     <div className="bg-gray-300">
-        <h1 className="text-4xl p-8">Edit Cards</h1>
+      <h1 className="text-4xl p-8">Edit Cards</h1>
       <div className="p-8">
         <div className="mb-12">
-            <h2 className="text-2xl">Current Card</h2>
+          <h2 className="text-2xl">Current Card</h2>
           <ContactCard
             id={editedCard!.id}
             lastName={editedCard!.lastName}
@@ -52,10 +58,10 @@ const { id }:{id:string} = useParams();
         <h2 className="text-2xl">New Card</h2>
         <ContactCard
           id={editedCard!.id}
-          lastName={lastName}
-          firstName={firstName}
-          phoneNumber={phoneNumber}
-          email={email}
+          lastName={formState.lastName}
+          firstName={formState.firstName}
+          phoneNumber={formState.phoneNumber}
+          email={formState.email}
         />
       </div>
 
@@ -63,37 +69,43 @@ const { id }:{id:string} = useParams();
         <form onSubmit={HandleSubmit}>
           <div>
             <label> First Name: </label>
-            <input className="mb-4"
+            <input
+              name="firstName"
+              className="mb-4"
               type="text"
-              value={firstName}
-              onChange={(e: any) => setFirstName(e.target.value)}
+              value={formState.firstName}
+              onChange={handleChange}
             />
-            <br/>
+            <br />
             <label>Last Name:</label>
             <input
+              name="lastName"
               type="text"
-              value={lastName}
-              onChange={(e: any) => setLastName(e.target.value)}
+              value={formState.lastName}
+              onChange={handleChange}
             />
           </div>
 
           <div className="flex align-middle my-4">
             <label>Email: </label>
             <input
-            type="email"
-            value={email}
-            onChange={(e: any) => setEmail(e.target.value)}
-          />
+              name="email"
+              type="email"
+              value={formState.email}
+              onChange={handleChange}
+            />
             <label> Phone Number: </label>
-<input
-            type="Number"
-            value={phoneNumber}
-            onChange={(e: any) => setPhoneNumber(e.target.value)}
-          />
+            <input
+              name="phoneNumber"
+              type="Number"
+              value={formState.phoneNumber}
+              onChange={handleChange}
+            />
           </div>
-          <button className="bg-red-400 mb-5 py-2 px-11" type="submit">Submit Edit</button>
+          <button className="bg-red-400 mb-5 py-2 px-11" type="submit">
+            Submit Edit
+          </button>
         </form>
-        <button type="button" onClick={()=> {history.push("/")}} className="bg-blue-400 py-2 px-16 ">Home</button>
       </div>
     </div>
   );

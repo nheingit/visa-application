@@ -108,7 +108,7 @@ export const ContactCard = ({
           </a>
         </CardActions>
       ) : (
-        <div className="flex justify-end">...</div>
+        <div></div>
       )}
     </Card>
   );
